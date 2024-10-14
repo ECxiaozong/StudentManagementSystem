@@ -113,6 +113,9 @@ public class Group {
         this.students.add(leader);
     }
 
+    /**
+     * 打印小组信息
+     */
     public void printGroup()
     {
         System.out.println("Name: " + name);
