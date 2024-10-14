@@ -6,10 +6,19 @@ import java.util.ArrayList;
 
 public class Group {
 
+    /**
+     * 小组名称
+     */
     private String name;
 
+    /**
+     * 小组学生列表
+     */
     private ArrayList<Student> students = new ArrayList<>();
 
+    /**
+     * 组长
+     */
     private Student leader;
 
     public String getName() {
