@@ -283,4 +283,18 @@ public class ClassGroup {
         }
     }
 
+    public void defaultClassTemplate() {
+        for (int i = 0; i <= 9; i++) {
+            Group group = new Group("小组" + (i + 1));
+            for (int j = 0; j <= 3; j++) {
+                Student student = new Student("张" + (i * 10 + j + 1), "20230158" + i + j,j & 1);
+                if (i == 0 && j == 0) {
+                    setMonitor(student);
+                }
+                group.addStudent(student);
+            }
+            addGroup(group);
+        }
+    }
+
 }

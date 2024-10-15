@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 /**
@@ -95,18 +97,37 @@ public class Group {
         students.removeIf(student -> student.getId().equals(name));
     }
 
+    /**
+     * 获取组长
+     * @return 组长
+     */
     public Student getLeader() {
+        if (leader == null) {
+            return students.get(0);
+        }
         return leader;
     }
 
+    /**
+     * 获取组长姓名
+     * @return 组长姓名
+     */
     public String getLeaderName() {
-        return leader.getName();
+        return getLeader().getName();
     }
 
+    /**
+     * 设置组长
+     * @param leader 组长
+     */
     public void setLeader(Student leader) {
         this.leader = leader;
     }
 
+    /**
+     * 设置组长根据姓名
+     * @param leaderName 组长姓名
+     */
     public void setLeaderName(String leaderName) {
         for (Student student : students) {
             if (student.getName().equals(leaderName)) {
@@ -115,6 +136,10 @@ public class Group {
         }
     }
 
+    /**
+     * 设置组长根据学号
+     * @param leaderId 组长学号
+     */
     public void setLeaderId(String leaderId) {
         for (Student student : students) {
             if (student.getId().equals(leaderId)) {
@@ -123,22 +148,37 @@ public class Group {
         }
     }
 
-    public Group(ArrayList<Student> students) {
+    /**
+     * 根据学生列表构造小组
+     * @param students 学生列表
+     */
+    public Group(@NotNull ArrayList<Student> students) {
         this.name = students.get(0).getName() + "的小组";
         this.students = students;
         this.leader = students.get(0);
     }
 
+    /**
+     * 根据小组名称构造小组
+     */
     public Group(String name) {
         this.name = name;
     }
 
+    /**
+     * 根据小组名称和组长构造小组
+     */
     public Group(String name, Student leader) {
         this.name = name;
         this.students.add(leader);
         this.leader = leader;
     }
 
+    /**
+     * 根据小组名称、学生列表构造小组
+     * @param name 小组名称
+     * @param students 学生列表
+     */
     public Group(String name, ArrayList<Student> students) {
         this.name = name;
         this.students = students;
