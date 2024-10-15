@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *     设置班级名称、添删改查班级小组和学生、随机选取学生、随机选取小组、打印班级信息
  * </p>
  *
- * @author 宗意
+ * @author 宗意、马雯钧
  * @version 1.0
  * @since 2024-10-13
  */

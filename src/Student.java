@@ -1,6 +1,6 @@
 
 /**
- * @author 宗意
+ * @author 宗意、马雯钧
  */
 
 public class Student {

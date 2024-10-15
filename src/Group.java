@@ -3,7 +3,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 /**
- * @author 宗意
+ * @author 宗意、马雯钧
  */
 
 public class Group {
