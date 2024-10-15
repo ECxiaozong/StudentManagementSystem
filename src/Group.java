@@ -86,6 +86,10 @@ public class Group {
         students.removeIf(student -> student.getName().equals(name));
     }
 
+    /**
+     * 移除学生根据学号
+     * @param id 学生学号
+     */
     public void removeStudentId(String id)
     {
         students.removeIf(student -> student.getId().equals(name));
