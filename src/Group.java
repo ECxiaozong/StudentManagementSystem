@@ -21,34 +21,66 @@ public class Group {
      */
     private Student leader;
 
+    /**
+     * 获取小组名称
+     * @return 小组名称
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * 设置小组名称
+     * @param name 小组名称
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * 查询小组人数
+     * @return 小组人数
+     */
     public int getGroupSize() {
         return students.size();
     }
 
+    /**
+     * 获取学生列表
+     * @return 学生列表
+     */
     public ArrayList<Student> getStudents() {
         return students;
     }
 
+    /**
+     * 设置学生列表
+     * @param students 学生列表
+     */
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
     }
 
+    /**
+     * 向小组学生列表中添加学生
+     * @param student 学生
+     */
     public void addStudent(Student student) {
         students.add(student);
     }
 
+    /**
+     * 移除小组学生
+     * @param student 学生
+     */
     public void removeStudent(Student student) {
         students.remove(student);
     }
 
+    /**
+     * 移除学生根据姓名
+     * @param name 学生姓名
+     */
     public void removeStudentName(String name)
     {
         students.removeIf(student -> student.getName().equals(name));
