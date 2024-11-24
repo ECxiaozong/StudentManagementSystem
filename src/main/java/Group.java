@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 
 public class Group {
-
     /**
      * 小组名称
      */
