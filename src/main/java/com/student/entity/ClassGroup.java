@@ -6,16 +6,6 @@ import java.util.ArrayList;
  * @author 宗意
  */
 public class ClassGroup {
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     private int number;
 
     public int getNumber() {
@@ -48,6 +38,10 @@ public class ClassGroup {
         this.name = name;
     }
 
+    public ClassGroup(String name,ArrayList<Student> students) {
+        this.name = name;
+        this.students = students;
+    }
     public ClassGroup(String name, ArrayList<Student> students, ArrayList<Group> groups) {
         this.name = name;
         this.students = students;
@@ -98,5 +92,14 @@ public class ClassGroup {
 
     public int size() {
         return students.size();
+    }
+
+    public Student getStudentByName(String name) {
+        for (Student student : students) {
+            if (student.getName().equals(name)) {
+                return student;
+            }
+        }
+        return null;
     }
 }

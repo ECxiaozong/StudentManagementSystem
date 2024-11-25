@@ -1,5 +1,6 @@
 package com.student.util;
 
+import com.student.entity.ClassGroup;
 import com.student.entity.Group;
 import com.student.entity.Student;
 
@@ -18,7 +19,8 @@ public class Constant {
     // 存放当前班级的小组和学生
     public static LinkedHashMap<Group, List<Student>> groups = new LinkedHashMap<>();
     // 存放当前班级的所有学生
-    public static List<Student> students = new ArrayList<>();
+    public static ArrayList<Student> students = new ArrayList<>();
+    public static ClassGroup classGroup = new ClassGroup();
     // 缺勤扣5分
     public static final int ABSENTEEISM_SCORE = 5;
     // 请假扣2分

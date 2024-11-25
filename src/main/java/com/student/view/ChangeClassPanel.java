@@ -1,5 +1,6 @@
 package com.student.view;
 
+import com.student.entity.ClassGroup;
 import com.student.entity.Student;
 import com.student.util.Constant;
 
@@ -63,6 +64,7 @@ public class ChangeClassPanel extends JScrollPane {
                             Student stu = new Student(strs[0], strs[1], strs[2], Integer.parseInt(strs[3]));
                             Constant.students.add(stu);
                         }
+                        Constant.classGroup = new ClassGroup(Constant.CLASS_PATH,Constant.students);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         JOptionPane.showMessageDialog(this, "初始化小组和学生信息失败，请检查相关文件", "", JOptionPane.INFORMATION_MESSAGE);
