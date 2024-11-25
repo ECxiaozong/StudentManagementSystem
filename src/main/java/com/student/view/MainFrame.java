@@ -12,6 +12,8 @@ public class MainFrame extends JFrame {
         initMenus();
 
         this.setSize(600, 500);
+        // 设置窗口居中
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
