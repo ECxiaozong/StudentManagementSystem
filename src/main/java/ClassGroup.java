@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * @author 宗意
  */
 public class ClassGroup {
-    int id;
+    private int id;
 
     public int getId() {
         return id;
@@ -12,6 +12,16 @@ public class ClassGroup {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    private int number;
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     /**
@@ -82,5 +92,9 @@ public class ClassGroup {
         for (Student student : group.getStudents()) {
             students.remove(student);
         }
+    }
+
+    public int size() {
+        return students.size();
     }
 }

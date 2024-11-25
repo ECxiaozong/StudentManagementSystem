@@ -1,5 +1,7 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * @author 宗意
@@ -7,6 +9,8 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
+
+
         JFrame frame = new JFrame("学生管理系统");
         int size = 5000;
         frame.setSize(size / 4, size / 6);
@@ -19,6 +23,30 @@ public class Main {
         JMenu fileMenu = new JMenu("文件");
         fileMenu.setFont(new Font("微软雅黑", Font.BOLD, size / 200));
         JMenuItem switchCurrentClassItem = new JMenuItem("切换当前班级");
+
+        switchCurrentClassItem.addActionListener(e -> {
+            ArrayList<ClassGroup> classGroups = new ArrayList<>();
+            try {
+                classGroups = DAO.getClassGroupsList();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            String[] columnNames = {"班级名称", "班级人数"};
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+            for (ClassGroup classGroup : classGroups) {
+                model.addRow(new Object[]{classGroup.getName(), classGroup.getNumber()});
+            }
+
+            JTable table = new JTable(model);
+            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            frame.add(new JScrollPane(table), BorderLayout.CENTER);
+
+            frame.revalidate(); // 刷新界面
+            frame.repaint(); // 重绘
+        });
+
         JMenuItem exportCurrentClassGradeItem = new JMenuItem("导出当前班级成绩");
         JMenuItem exitItem = new JMenuItem("退出");
         switchCurrentClassItem.setFont(new Font("微软雅黑", Font.PLAIN, size / 250));
