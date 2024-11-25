@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RandomGroupPanel extends JPanel {
     private JLabel lbl1 = new JLabel("小组名：");
@@ -191,7 +193,47 @@ public class RandomGroupPanel extends JPanel {
             if (txtStudent.getText() == null || txtStudent.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "请先随机选择学生", "", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                String filePath = Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt";
+                String studentName = txtStudent.getText(); // 要查找的学生名字
+                int decrementValue = 5; // 要减去的值
 
+                try {
+                    // 读取文件
+                    List<String> lines = new ArrayList<>();
+                    BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        lines.add(line);
+                    }
+                    reader.close();
+
+                    // 查找并修改指定行
+                    for (int i = 0; i < lines.size(); i++) {
+                        String currentLine = lines.get(i);
+                        if (currentLine.startsWith(studentName + ",")) {
+                            String[] parts = currentLine.split(",");
+                            if (parts.length > 3) {
+                                int score = Integer.parseInt(parts[3]);
+                                score -= decrementValue; // 修改值
+                                parts[3] = String.valueOf(score); // 更新分数
+                                lines.set(i, String.join(",", parts)); // 重新组装行
+                            }
+                            break; // 找到后退出循环
+                        }
+                    }
+
+                    // 将修改后的内容写回文件
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+                    for (String updatedLine : lines) {
+                        writer.write(updatedLine);
+                        writer.newLine();
+                    }
+                    writer.close();
+
+                    System.out.println("文件更新成功！");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 JOptionPane.showMessageDialog(this, "已记录缺勤", "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
@@ -200,7 +242,47 @@ public class RandomGroupPanel extends JPanel {
             if (txtStudent.getText() == null || txtStudent.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "请先随机选择学生", "", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                String filePath = Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt"; // 替换为你的文件路径
+                String studentName = txtStudent.getText(); // 要查找的学生名字
+                int decrementValue = 2; // 要减去的值
 
+                try {
+                    // 读取文件
+                    List<String> lines = new ArrayList<>();
+                    BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        lines.add(line);
+                    }
+                    reader.close();
+
+                    // 查找并修改指定行
+                    for (int i = 0; i < lines.size(); i++) {
+                        String currentLine = lines.get(i);
+                        if (currentLine.startsWith(studentName + ",")) {
+                            String[] parts = currentLine.split(",");
+                            if (parts.length > 3) {
+                                int score = Integer.parseInt(parts[3]);
+                                score -= decrementValue; // 修改值
+                                parts[3] = String.valueOf(score); // 更新分数
+                                lines.set(i, String.join(",", parts)); // 重新组装行
+                            }
+                            break; // 找到后退出循环
+                        }
+                    }
+
+                    // 将修改后的内容写回文件
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+                    for (String updatedLine : lines) {
+                        writer.write(updatedLine);
+                        writer.newLine();
+                    }
+                    writer.close();
+
+                    System.out.println("文件更新成功！");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 JOptionPane.showMessageDialog(this, "已记录请假", "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
@@ -214,7 +296,49 @@ public class RandomGroupPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "请填写分数", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            int score1 = Integer.parseInt(txtScore.getText());
+            String filePath = Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt"; // 替换为你的文件路径
+            String studentName = txtStudent.getText(); // 要查找的学生名字
+            int decrementValue = -score1; // 要减去的值
 
+            try {
+                // 读取文件
+                List<String> lines = new ArrayList<>();
+                BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    lines.add(line);
+                }
+                reader.close();
+
+                // 查找并修改指定行
+                for (int i = 0; i < lines.size(); i++) {
+                    String currentLine = lines.get(i);
+                    if (currentLine.startsWith(studentName + ",")) {
+                        String[] parts = currentLine.split(",");
+                        if (parts.length > 3) {
+                            int score = Integer.parseInt(parts[3]);
+                            score -= decrementValue; // 修改值
+                            parts[3] = String.valueOf(score); // 更新分数
+                            lines.set(i, String.join(",", parts)); // 重新组装行
+                        }
+                        break; // 找到后退出循环
+                    }
+                }
+
+                // 将修改后的内容写回文件
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+                for (String updatedLine : lines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                writer.close();
+
+                System.out.println("文件更新成功！");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(this, "已给小组打分", "", JOptionPane.INFORMATION_MESSAGE);
         });
     }
 }

@@ -5,6 +5,7 @@ import com.student.util.Constant;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import java.io.*;
 
 public class RandomStudentPanel extends JPanel {
     private JLabel lbl2 = new JLabel("学生姓名：");
@@ -45,7 +46,52 @@ public class RandomStudentPanel extends JPanel {
 
             } else {
                 btnChooseStudent.setText("停");
+                int count = 0;
+                File file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt");
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    while (br.readLine() != null) {
+                        count++;
+                    }
+                    br.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                int finalCount = count;
+                new Thread(() -> {
+                    while (true) {
+                        int index = (int) (Math.random() * finalCount);
+                        String studentName = "";
+                        try {
+                            BufferedReader br = new BufferedReader(new FileReader(file));
+                            while ((studentName = br.readLine()) != null) {
+                                index--;
+                                if (index < 0) {
+                                    studentName = studentName.split(",")[0];
+                                    break;
+                                }
+                            }
+                            br.close();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        String finalStudentName = studentName;
+                        SwingUtilities.invokeLater(() -> {
+                            txtStudent.setText(finalStudentName);
+                            this.repaint();
+                        });
 
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                        if (btnChooseStudent.getText().equals("随机学生")) {
+                            break;
+                        }
+                    }
+                }).start();
             }
         });
         // TODO 缺勤
