@@ -28,7 +28,6 @@ public class ClassAddPanel extends JPanel {
             if (txtName.getText() == null || txtName.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "请填写班级名称", "", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // TODO 添加班级
                 File dir = new File(Constant.FILE_PATH +"/"+ txtName.getText());
                 if (!dir.exists()) {
                     boolean mkDired = dir.mkdir();
