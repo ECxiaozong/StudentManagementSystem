@@ -22,7 +22,6 @@ public class ClassListPanel extends JPanel {
     public ClassListPanel() {
         this.setBorder(new TitledBorder(new EtchedBorder(), "班级列表"));
         this.setLayout(new BorderLayout());
-        // TODO 列举班级
 
         File directory = new File(Constant.FILE_PATH);
         File[] classes = directory.listFiles(File::isDirectory);
@@ -59,6 +58,7 @@ public class ClassListPanel extends JPanel {
 
         btnEdit.addActionListener(e -> {
             int selectedRow = classTable.getSelectedRow();
+            String oldName = data[selectedRow][1];
             if (selectedRow < 0) {
                 JOptionPane.showMessageDialog(this, "请先选择班级", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
@@ -67,11 +67,19 @@ public class ClassListPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "请填写班级名称", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            // TODO 修改班级
+
+            File oldFile = new File(Constant.FILE_PATH + "/" + oldName);
+            File newFile = new File(Constant.FILE_PATH + "/" + txtName.getText());
+            if (newFile.exists()) {
+                System.out.println("错误：新名称已经被其他文件或文件夹占用，请选择其他名称。");
+                return; // 退出程序
+            }
+            oldFile.renameTo(newFile);
             JOptionPane.showMessageDialog(this, "修改成功", "", JOptionPane.INFORMATION_MESSAGE);
         });
         btnDelete.addActionListener(e -> {
             int selectedRow = classTable.getSelectedRow();
+            String className = data[selectedRow][1];
             if (selectedRow < 0) {
                 JOptionPane.showMessageDialog(this, "请先选择班级", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
@@ -79,7 +87,9 @@ public class ClassListPanel extends JPanel {
             if(JOptionPane.showConfirmDialog(this, "删除班级会把小组、学生和成绩都删除，您确定要删除这个班级？", "", JOptionPane.YES_NO_OPTION) != 0){
                 return;
             }
-            // TODO 删除班级
+
+            File file = new File(Constant.FILE_PATH + "/" + className);
+            file.delete();
             JOptionPane.showMessageDialog(this, "删除班级成功", "", JOptionPane.INFORMATION_MESSAGE);
 
         });
