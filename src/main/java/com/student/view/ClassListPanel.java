@@ -23,7 +23,6 @@ public class ClassListPanel extends JPanel {
         this.setBorder(new TitledBorder(new EtchedBorder(), "班级列表"));
         this.setLayout(new BorderLayout());
         // TODO 列举班级
-
         File[] classes = new File[1];
         classes[0] = new File(Constant.FILE_PATH+"/"+Constant.CLASS_PATH);
 

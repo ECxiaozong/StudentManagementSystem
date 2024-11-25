@@ -31,15 +31,15 @@ public class ClassAddPanel extends JPanel {
                 // TODO 添加班级
                 File dir = new File(Constant.FILE_PATH +"/"+ txtName.getText());
                 if (!dir.exists()) {
-                    boolean mkDirred = dir.mkdir();
-                    if(!mkDirred){
+                    boolean mkDired = dir.mkdir();
+                    if(!mkDired){
                         JOptionPane.showMessageDialog(this, "创建班级失败", "", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{
                         File file = new File(Constant.FILE_PATH + "/"+txtName.getText() + "/students.txt");
                         try {
-                            boolean mkFilered = file.createNewFile();
-                            if(!mkFilered){
+                            boolean mkFiltered = file.createNewFile();
+                            if(!mkFiltered){
                                 JOptionPane.showMessageDialog(this, "创建学生信息文件失败", "", JOptionPane.INFORMATION_MESSAGE);
                             }
                         } catch (Exception e1) {
