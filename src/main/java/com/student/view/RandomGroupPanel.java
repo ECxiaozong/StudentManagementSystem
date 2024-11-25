@@ -5,6 +5,7 @@ import com.student.util.Constant;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import java.io.File;
 
 public class RandomGroupPanel extends JPanel {
     private JLabel lbl1 = new JLabel("小组名：");
@@ -61,11 +62,41 @@ public class RandomGroupPanel extends JPanel {
         btnChooseGroup.addActionListener(e -> {
             if (e.getActionCommand().equals("停")) {
                 btnChooseGroup.setText("随机小组");
-
             } else {
+                btnChooseGroup.setText("停");
+                File file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH);
+                File[] files = file.listFiles();
 
+                // 创建一个新的线程来执行随机选择
+                new Thread(() -> {
+                    while (true) {
+                        int index = (int) (Math.random() * files.length);
+                        while (files[index].getName().equals("students.txt")) {
+                            index = (int) (Math.random() * files.length);
+                        }
+                        // 在事件调度线程中更新UI组件
+                        int finalIndex = index;
+                        SwingUtilities.invokeLater(() -> {
+                            txtGroup.setText(files[finalIndex].getName().substring(0, files[finalIndex].getName().length() - 4));
+                            this.repaint();
+                        });
+
+                        // 停顿1秒
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                        // 检查按钮的文字状态
+                        if (btnChooseGroup.getText().equals("随机小组")) {
+                            break;
+                        }
+                    }
+                }).start(); // 启动新线程
             }
         });
+
         // 随机学生
         btnChooseStudent.addActionListener(e -> {
             if (txtGroup.getText() == null || txtGroup.getText().isEmpty()) {
