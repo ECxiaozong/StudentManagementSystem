@@ -1,3 +1,5 @@
+package com.student.entity;
+
 /**
  * <p>小组包含小组名称、学生列表和组长。提供了添加、移除学生，以及获取小组信息的方法。</p>
  *
@@ -77,4 +79,11 @@ public class Student {
         this.id = id;
         this.sex = sex;
     }
+    public Student(String name, String id, String sex, int score){
+        this.name = name;
+        this.id = id;
+        this.sex = sex;
+        this.score = score;
+    }
 }
+

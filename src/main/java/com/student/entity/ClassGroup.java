@@ -1,3 +1,5 @@
+package com.student.entity;
+
 import java.util.ArrayList;
 
 /**
