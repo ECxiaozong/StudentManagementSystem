@@ -4,6 +4,7 @@ import com.student.util.Constant;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 public class MainFrame extends JFrame {
 
@@ -113,7 +114,11 @@ public class MainFrame extends JFrame {
             } else {
                 this.getContentPane().removeAll();
                 initMenus();
-                this.getContentPane().add(new GroupListPanel(), BorderLayout.CENTER);
+                try {
+                    this.getContentPane().add(new GroupListPanel(), BorderLayout.CENTER);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 this.getContentPane().repaint();
                 this.getContentPane().validate();
             }

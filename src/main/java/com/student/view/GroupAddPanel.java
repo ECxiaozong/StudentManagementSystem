@@ -79,6 +79,18 @@ public class GroupAddPanel extends JScrollPane {
                     ArrayList<String>selectedStudents = new ArrayList<>();
                     for (String student : list.getSelectedValuesList()) {
                         Student s = Constant.classGroup.getStudentByName(student);
+                        BufferedReader br = new BufferedReader(new FileReader(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            String[] strs = line.split(",");
+                            if (strs[0].equals(student)) {
+                                s.setId(strs[1]);
+                                s.setSex(strs[2]);
+                                s.setScore(Integer.parseInt(strs[3]));
+                                break;
+                            }
+                        }
+                        br.close();
                         selectedStudents.add(s.getName()+","+s.getId()+","+s.getSex()+","+s.getScore());
                     }
                     try(BufferedWriter bw = new BufferedWriter(new FileWriter(Constant.FILE_PATH+"/"+Constant.CLASS_PATH+"/"+txtName.getText()+".txt"))){
@@ -94,6 +106,7 @@ public class GroupAddPanel extends JScrollPane {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+                list.clearSelection();
                 JOptionPane.showMessageDialog(this, "新增小组成功", "", JOptionPane.INFORMATION_MESSAGE);
                 txtName.setText("");
             }
