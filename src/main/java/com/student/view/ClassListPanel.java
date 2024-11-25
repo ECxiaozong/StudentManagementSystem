@@ -10,7 +10,7 @@ import java.awt.*;
 import java.io.File;
 
 /**
- * @author mwj
+ * @author 宗意
  */
 public class ClassListPanel extends JPanel {
     String[] headers = {"序号", "班级名称"};
