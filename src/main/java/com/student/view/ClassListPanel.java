@@ -74,6 +74,9 @@ public class ClassListPanel extends JPanel {
                 System.out.println("错误：新名称已经被其他文件或文件夹占用，请选择其他名称。");
                 return; // 退出程序
             }
+            if (Constant.CLASS_PATH.equals(oldName)) {
+                Constant.CLASS_PATH = txtName.getText();
+            }
             oldFile.renameTo(newFile);
             JOptionPane.showMessageDialog(this, "修改成功", "", JOptionPane.INFORMATION_MESSAGE);
         });
