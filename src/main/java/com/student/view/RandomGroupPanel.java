@@ -5,7 +5,7 @@ import com.student.util.Constant;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import java.io.File;
+import java.io.*;
 
 public class RandomGroupPanel extends JPanel {
     private JLabel lbl1 = new JLabel("小组名：");
@@ -81,7 +81,7 @@ public class RandomGroupPanel extends JPanel {
                             this.repaint();
                         });
 
-                        // 停顿1秒
+                        // 停顿0.1秒
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {
@@ -107,7 +107,82 @@ public class RandomGroupPanel extends JPanel {
 
                 } else {
                     btnChooseStudent.setText("停");
+                    File file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/" + txtGroup.getText() + ".txt");
+                    int count = 0;
+                    // 使用BufferedReader读取文件
+                    BufferedReader br = null;
+                    try {
+                        br = new BufferedReader(new FileReader(file));
+                        while (br.readLine() != null) {
+                            count++;
+                        }
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
 
+                    // 创建一个新的线程来执行随机选择
+                    int finalCount = count;
+                    BufferedReader finalBr = br;
+
+                    BufferedReader finalBr1 = br;
+
+                    try {
+                        br.close();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    new Thread(() -> {
+                        while (true) {
+                            BufferedReader br1 = null;
+                            try {
+                                br1 = new BufferedReader(new FileReader(file));
+                            } catch (FileNotFoundException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            int index = (int) (Math.random() * finalCount);
+                            String line = null;
+                            // 在事件调度线程中更新UI组件
+                            while (true) {
+                                try {
+                                    if ((line = br1.readLine()) == null) {
+                                        break;
+                                    }
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                                index--;
+                                if (index < 0) {
+                                    break;
+                                }
+                            }
+                            String[] strings = null;
+                            if (line != null) {
+                                strings = line.split(",");
+                            }
+
+                            if (strings != null) {
+                                line = strings[0];
+                            }
+
+                            String finalLine = line;
+                            SwingUtilities.invokeLater(() -> {
+                                txtStudent.setText(finalLine);
+                                this.repaint();
+                            });
+
+                            // 停顿0.1秒
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                            // 检查按钮的文字状态
+                            if (btnChooseStudent.getText().equals("随机学生")) {
+                                break;
+                            }
+                        }
+                    }).start(); // 启动新线程
                 }
             }
         });
