@@ -4,7 +4,7 @@ import com.student.util.Constant;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 public class MainFrame extends JFrame {
 
@@ -68,16 +68,39 @@ public class MainFrame extends JFrame {
             this.getContentPane().add(changeClassPanel, BorderLayout.CENTER);
             this.getContentPane().validate();
         });
-        // 导出成绩
+//         导出成绩
         exportScoreMenuItem.addActionListener(e -> {
             if (Constant.CLASS_PATH.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "请先选择班级", "", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // TODO 导出
+                String[][] data = new String[Constant.classGroup.getStudents().size()][2];
+                String scoreFilePath = Constant.FILE_PATH + "/"+ Constant.CLASS_PATH + "/成绩导出.txt";
+                File file = new File(scoreFilePath);
+                try(BufferedWriter bw = new BufferedWriter(new FileWriter(scoreFilePath))){
+                    String filePath = Constant.FILE_PATH + "/"+ Constant.CLASS_PATH+"/students.txt";
+                    file.createNewFile();
+                    try(BufferedReader br = new BufferedReader(new FileReader(filePath))){
+                        String line;
+                        int index = 0;
+                        while((line = br.readLine()) != null){
+                            String[] split = line.split(",");
+                            data[index][0] = split[0];
+                            data[index][1] = split[3];
+                            index++;
+                        }
+                    }
+                    for(String[] student : data){
+                        bw.write(student[0] + "," + student[1] + "\n");
+                        bw.newLine();
+                    }
+                }
+                catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 JOptionPane.showMessageDialog(this, "成绩已导出", "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-        // 退出程序
+//         退出程序
         exitMenuItem.addActionListener(e -> System.exit(0));
         // 新增班级
         addClassMenuItem.addActionListener(e -> {
