@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author mwj
+ */
 public class GroupListPanel extends JPanel {
     String[] headers = {"序号", "小组名称", "分数"};
     String[][] data = null;
@@ -71,7 +74,6 @@ public class GroupListPanel extends JPanel {
         this.add(btnPanel, BorderLayout.SOUTH);
 
         classTable.getSelectionModel().addListSelectionListener(e -> {
-            // TODO 获取选中小组
             int selectedRow = classTable.getSelectedRow();
             if(selectedRow >= 0) {
                 txtName.setText(data[selectedRow][1]);
@@ -80,7 +82,6 @@ public class GroupListPanel extends JPanel {
         });
 
         btnEdit.addActionListener(e -> {
-            // TODO 修改小组
             int selectedRow = classTable.getSelectedRow();
             if(selectedRow < 0){
                 JOptionPane.showMessageDialog(this, "请先选择班级", "", JOptionPane.INFORMATION_MESSAGE);
@@ -108,7 +109,6 @@ public class GroupListPanel extends JPanel {
             classTable.clearSelection();
         });
         btnDelete.addActionListener(e -> {
-            // TODO 删除小组
             int selectedRow = classTable.getSelectedRow();
             if(selectedRow < 0){
                 JOptionPane.showMessageDialog(this, "请先选择班级", "", JOptionPane.INFORMATION_MESSAGE);
