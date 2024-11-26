@@ -26,10 +26,19 @@ public class ClassListPanel extends JPanel {
         File directory = new File(Constant.FILE_PATH);
         File[] classes = directory.listFiles(File::isDirectory);
 
-        String[][] data = new String[classes.length][2];
+        String[][] data;
+        if (classes != null) {
+            data = new String[classes.length][2];
+        } else {
+            data = null;
+        }
         for (int i = 0; i < classes.length; i++) {
-            data[i][0] = String.valueOf(i + 1);
-            data[i][1] = classes[i].getName();
+            if (data != null) {
+                data[i][0] = String.valueOf(i + 1);
+            }
+            if (data != null) {
+                data[i][1] = classes[i].getName();
+            }
         }
         DefaultTableModel tableModel = new DefaultTableModel(data, headers);
         classTable = new JTable(tableModel) {
