@@ -95,8 +95,8 @@ public class StudentListPanel extends JPanel {
         studentTable.getSelectionModel().addListSelectionListener(e -> {
             int selectedRow = studentTable.getSelectedRow();
             if (selectedRow >= 0) {
-                // TODO 准备修改学生
-
+                txtId.setText(data[selectedRow][0]);
+                txtName.setText(data[selectedRow][1]);
             }
         });
 
@@ -115,8 +115,30 @@ public class StudentListPanel extends JPanel {
                 return;
             }
             // TODO 修改学生
-            JOptionPane.showMessageDialog(this, "修改成功", "", JOptionPane.INFORMATION_MESSAGE);
+            Student student = new Student();
+            student.setId(txtId.getText());
+            student.setName(txtName.getText());
+            student.setScore(Integer.parseInt(data[selectedRow][2]));
+            String group = (String) cmbGroup.getSelectedItem() + ".txt";
+            File file1 = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/" + group);
+            if (!file1.exists()) {
+                JOptionPane.showMessageDialog(this, "请选择小组", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            BufferedReader reader1 = null;
 
+            try {
+                // 使用 FileWriter 以追加模式打开文件
+                FileWriter writer = new FileWriter(file1, true);
+                // 写入学生信息
+                writer.write(student.getName() + "," + student.getId() + ",0" + student.getScore() + "\n");
+                // 关闭 writer
+                writer.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                JOptionPane.showMessageDialog(this, "写入文件失败", "", JOptionPane.ERROR_MESSAGE);
+            }
+            JOptionPane.showMessageDialog(this, "修改成功", "", JOptionPane.INFORMATION_MESSAGE);
         });
         btnDelete.addActionListener(e -> {
             int selectedRow = studentTable.getSelectedRow();
