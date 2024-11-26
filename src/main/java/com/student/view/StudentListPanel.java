@@ -150,6 +150,34 @@ public class StudentListPanel extends JPanel {
                 return;
             }
             // TODO 删除学生
+            String group = (String) cmbGroup.getSelectedItem() + ".txt";
+            File file1 = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/" + group);
+            if (!file1.exists()) {
+                JOptionPane.showMessageDialog(this, "请选择小组", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            BufferedReader reader1 = null;
+            try {
+                reader1 = new BufferedReader(new FileReader(file1));
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+                JOptionPane.showMessageDialog(this, "读取文件失败", "", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String line1 = null;
+            try {
+                while ((line1 = reader1.readLine()) != null) {
+                    String[] str1 = line1.split(",");
+                    if (str1[1].equals(data[selectedRow][0])) {
+                        reader1.close();
+                        break;
+                    }
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                JOptionPane.showMessageDialog(this, "读取文件失败", "", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "删除学生成功", "", JOptionPane.INFORMATION_MESSAGE);
 
         });
