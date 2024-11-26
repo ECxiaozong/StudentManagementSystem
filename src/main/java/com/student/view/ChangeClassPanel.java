@@ -31,6 +31,9 @@ public class ChangeClassPanel extends JScrollPane {
             ButtonGroup btnGroup = new ButtonGroup();
             for (File file : files) {
                 if (file.isDirectory()) {
+                    if(file.getName().equals("成绩导出")){
+                        continue;
+                    }
                     JRadioButton classRadio = new JRadioButton(file.getName());
                     btnGroup.add(classRadio);
                     this.add(classRadio);
@@ -59,6 +62,7 @@ public class ChangeClassPanel extends JScrollPane {
                     try (BufferedReader br = new BufferedReader(new FileReader(Constant.FILE_PATH + "/"+ Constant.CLASS_PATH + "/students.txt"))){
                         String line;
                         Constant.students.clear();
+                        Constant.classGroup = null;
                         while((line = br.readLine())!=null){
                             String[] strs = line.split(",");
                             Student stu = new Student(strs[0], strs[1], strs[2], Integer.parseInt(strs[3]));

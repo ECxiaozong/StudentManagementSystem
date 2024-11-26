@@ -87,6 +87,10 @@ public class ClassListPanel extends JPanel {
                 Constant.CLASS_PATH = txtName.getText();
             }
             oldFile.renameTo(newFile);
+            data[selectedRow][1] = txtName.getText();
+            tableModel.setDataVector(data, headers);
+            classTable.updateUI();
+            txtName.setText("");
             JOptionPane.showMessageDialog(this, "修改成功", "", JOptionPane.INFORMATION_MESSAGE);
         });
         btnDelete.addActionListener(e -> {
