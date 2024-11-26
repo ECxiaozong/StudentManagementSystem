@@ -19,7 +19,7 @@ public class ClassListPanel extends JPanel {
     JButton btnEdit = new JButton("修改");
     JButton btnDelete = new JButton("删除");
 
-    public ClassListPanel() {
+    public ClassListPanel(MainFrame mainFrame) {
         this.setBorder(new TitledBorder(new EtchedBorder(), "班级列表"));
         this.setLayout(new BorderLayout());
 
@@ -85,6 +85,7 @@ public class ClassListPanel extends JPanel {
             }
             if (Constant.CLASS_PATH.equals(oldName)) {
                 Constant.CLASS_PATH = txtName.getText();
+                mainFrame.setTitle(txtName.getText());
             }
             oldFile.renameTo(newFile);
             data[selectedRow][1] = txtName.getText();

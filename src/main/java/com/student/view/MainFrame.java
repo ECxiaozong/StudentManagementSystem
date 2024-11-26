@@ -120,7 +120,7 @@ public class MainFrame extends JFrame {
         classListMenuItem.addActionListener(e -> {
             this.getContentPane().removeAll();
             initMenus();
-            ClassListPanel classListPanel = new ClassListPanel();
+            ClassListPanel classListPanel = new ClassListPanel(MainFrame.this);
             this.getContentPane().add(classListPanel, BorderLayout.CENTER);
             this.getContentPane().validate();
         });
