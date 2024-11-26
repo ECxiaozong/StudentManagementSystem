@@ -2,16 +2,18 @@ package com.student.view;
 
 import com.student.entity.Group;
 import com.student.entity.Student;
+import com.student.util.Constant;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.*;
 import java.util.List;
 
 public class StudentListPanel extends JPanel {
-    String[] headers = {"学号", "姓名", "小组"};
+    String[] headers = {"学号", "姓名", "分数"};
     String[][] data = null;
     JTable studentTable;
     JTextField txtId = new JTextField();
@@ -24,8 +26,41 @@ public class StudentListPanel extends JPanel {
         this.setBorder(new TitledBorder(new EtchedBorder(), "学生列表"));
         this.setLayout(new BorderLayout());
         // TODO 列举小组和学生构建table和combox
-        data = new String[1][3];
-        data[0] = new String[]{"1", "张三", "a组"};
+        File file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt");
+        BufferedReader reader = null;
+        int count = 0;
+        String line = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            while ((line = reader.readLine())!= null) {
+            count++;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        data = new String[count][3];
+        count = 0;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (true) {
+            try {
+                if ((line = reader.readLine()) == null) {
+                    reader.close();
+                    break;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String[] str = line.split(",");
+            data[count][0] = str[1];
+            data[count][1] = str[0];
+            data[count][2] = str[3];
+            System.out.println(count);
+            count++;
+        }
         DefaultTableModel tableModel = new DefaultTableModel(data, headers);
         studentTable = new JTable(tableModel) {
             @Override
@@ -45,6 +80,13 @@ public class StudentListPanel extends JPanel {
         btnPanel.add(cmbGroup);
         cmbGroup.setPreferredSize(new Dimension(100, 30));
         cmbGroup.addItem("请选择小组");
+        file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH);
+        File files[] = file.listFiles();
+        for (File file1 : files) {
+            if (!file1.getName().equals("students.txt")) {
+                cmbGroup.addItem(file1.getName().substring(0, file1.getName().length() - 4));
+            }
+        }
 
         btnPanel.add(btnEdit);
         btnPanel.add(btnDelete);

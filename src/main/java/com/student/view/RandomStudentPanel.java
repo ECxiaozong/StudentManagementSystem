@@ -9,6 +9,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 宗意
+ */
 public class RandomStudentPanel extends JPanel {
     private JLabel lbl2 = new JLabel("学生姓名：");
     private JLabel lbl3 = new JLabel("学生照片：");
