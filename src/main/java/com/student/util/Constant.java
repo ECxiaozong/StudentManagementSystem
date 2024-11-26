@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Constant {
     // 小组、学生等文件路径
-    public static final String FILE_PATH = "D:/ABC";
+    public static final String FILE_PATH = "D:/班级管理";
     // 班级路径
     public static String CLASS_PATH = "";
     // 存放当前班级的小组和学生

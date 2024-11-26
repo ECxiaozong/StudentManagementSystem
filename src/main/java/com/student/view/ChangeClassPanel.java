@@ -31,9 +31,6 @@ public class ChangeClassPanel extends JScrollPane {
             ButtonGroup btnGroup = new ButtonGroup();
             for (File file : files) {
                 if (file.isDirectory()) {
-                    if(file.getName().equals("成绩导出")){
-                        continue;
-                    }
                     JRadioButton classRadio = new JRadioButton(file.getName());
                     btnGroup.add(classRadio);
                     this.add(classRadio);
