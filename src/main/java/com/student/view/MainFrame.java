@@ -74,12 +74,12 @@ public class MainFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "请先选择班级", "", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 String[][] data = new String[Constant.classGroup.getStudents().size()][2];
-                String scoreFolderPath = Constant.FILE_PATH + "/成绩导出";//成绩导出文件夹
+                String scoreFolderPath = "D:/成绩导出";//成绩导出文件夹
                 File scoreFolder = new File(scoreFolderPath);
                 if (!scoreFolder.exists()) {
                     scoreFolder.mkdir();
                 }
-                String filePath = Constant.FILE_PATH + "/成绩导出"+"/"+Constant.CLASS_PATH+".txt";//成绩导出文件
+                String filePath = "D:/成绩导出"+"/"+Constant.CLASS_PATH+".txt";//成绩导出文件
                 File file = new File(filePath);
 
                 try(BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))){
