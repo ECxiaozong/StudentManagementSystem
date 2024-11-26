@@ -178,6 +178,16 @@ public class StudentListPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "读取文件失败", "", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+//            data = newData;
+//            DefaultTableModel tableModel1 = (DefaultTableModel) classTable.getModel();
+//            tableModel1.setDataVector(data, headers);
+            txtId.setText("");
+            txtName.setText("");
+            data[selectedRow][0] = "";
+            data[selectedRow][1] = "";
+            data[selectedRow][2] = "";
+            tableModel.setDataVector(data, headers);
+            studentTable.updateUI();
             JOptionPane.showMessageDialog(this, "删除学生成功", "", JOptionPane.INFORMATION_MESSAGE);
 
         });

@@ -44,7 +44,9 @@ public class GroupListPanel extends JPanel {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] split = line.split(",");
-                    score+=Integer.parseInt(split[3]);
+                    if (split.length == 4) {
+                        score += Integer.parseInt(split[3]);
+                    }
                 }
             }
             catch (IOException e) {
