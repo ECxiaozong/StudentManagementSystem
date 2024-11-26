@@ -83,7 +83,7 @@ public class StudentListPanel extends JPanel {
         file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH);
         File files[] = file.listFiles();
         for (File file1 : files) {
-            if (!file1.getName().equals("students.txt")) {
+            if (!"students.txt".equals(file1.getName())) {
                 cmbGroup.addItem(file1.getName().substring(0, file1.getName().length() - 4));
             }
         }
