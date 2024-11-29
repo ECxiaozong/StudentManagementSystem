@@ -58,7 +58,6 @@ public class StudentListPanel extends JPanel {
             data[count][0] = str[1];
             data[count][1] = str[0];
             data[count][2] = str[3];
-//            System.out.println(count);
             count++;
         }
         DefaultTableModel tableModel = new DefaultTableModel(data, headers);
@@ -178,6 +177,17 @@ public class StudentListPanel extends JPanel {
                 e1.printStackTrace();
                 JOptionPane.showMessageDialog(this, "写入文件失败", "", JOptionPane.ERROR_MESSAGE);
             }
+            data = new String[lines.size()][3];
+            String[] str = null;
+            for (int i = 0; i < lines.size(); i++) {
+                str = lines.get(i).split(",");
+                data[i][0] = str[0];
+                data[i][1] = str[1];
+                data[i][2] = str[2];
+            }
+            // 更新表格
+            DefaultTableModel tableModel1 = new DefaultTableModel(data, headers);
+            studentTable.setModel(tableModel1);
             // 删除小组文件中的学生信息
             String group = (String) cmbGroup.getSelectedItem() + ".txt";
             File file2 = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/" + group);
