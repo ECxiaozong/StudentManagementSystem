@@ -57,7 +57,7 @@ public class StudentListPanel extends JPanel {
             data[count][0] = str[1];
             data[count][1] = str[0];
             data[count][2] = str[3];
-            System.out.println(count);
+//            System.out.println(count);
             count++;
         }
         DefaultTableModel tableModel = new DefaultTableModel(data, headers);
