@@ -10,6 +10,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentListPanel extends JPanel {
@@ -31,8 +32,8 @@ public class StudentListPanel extends JPanel {
         String line = null;
         try {
             reader = new BufferedReader(new FileReader(file));
-            while ((line = reader.readLine())!= null) {
-            count++;
+            while ((line = reader.readLine()) != null) {
+                count++;
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -149,46 +150,65 @@ public class StudentListPanel extends JPanel {
                 return;
             }
             // TODO 删除学生
-            String group = (String) cmbGroup.getSelectedItem() + ".txt";
-            File file1 = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/" + group);
-            if (!file1.exists()) {
-                JOptionPane.showMessageDialog(this, "请选择小组", "", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            BufferedReader reader1 = null;
+            String studentId = data[selectedRow][0];
+            File file1 = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt");
+            ArrayList<String> lines = new ArrayList<>();
             try {
-                reader1 = new BufferedReader(new FileReader(file1));
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
-                JOptionPane.showMessageDialog(this, "读取文件失败", "", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            String line1 = null;
-            try {
-                while ((line1 = reader1.readLine()) != null) {
-                    String[] str1 = line1.split(",");
-                    if (str1[0].equals(data[selectedRow][1])) {
-                        reader1.close();
-                        break;
+                BufferedReader reader1 = new BufferedReader(new FileReader(file1));
+                String newLine = null;
+                String[] str = null;
+                while ((newLine = reader1.readLine()) != null) {
+                    str = newLine.split(",");
+                    if (!studentId.equals(str[1])) {
+                        lines.add(newLine);
                     }
                 }
+                reader1.close();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            // 写入修改后的文件
+            try {
+                FileWriter writer = new FileWriter(file1, false);
+                for (String line2 : lines) {
+                    writer.write(line2 + "\n");
+                }
+                writer.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
-                JOptionPane.showMessageDialog(this, "读取文件失败", "", JOptionPane.ERROR_MESSAGE);
-                return;
+                JOptionPane.showMessageDialog(this, "写入文件失败", "", JOptionPane.ERROR_MESSAGE);
             }
-//            data = newData;
-//            DefaultTableModel tableModel1 = (DefaultTableModel) classTable.getModel();
-//            tableModel1.setDataVector(data, headers);
-            txtId.setText("");
-            txtName.setText("");
-            data[selectedRow][0] = "";
-            data[selectedRow][1] = "";
-            data[selectedRow][2] = "";
-            tableModel.setDataVector(data, headers);
-            studentTable.updateUI();
+            // 删除小组文件中的学生信息
+            String group = (String) cmbGroup.getSelectedItem() + ".txt";
+            File file2 = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/" + group);
+            ArrayList<String> lines2 = new ArrayList<>();
+            try {
+                BufferedReader reader2 = new BufferedReader(new FileReader(file2));
+                String newLine2 = null;
+                String[] str2 = null;
+                while ((newLine2 = reader2.readLine()) != null) {
+                    str2 = newLine2.split(",");
+                    if (!studentId.equals(str2[1])) {
+                        lines2.add(newLine2);
+                    }
+                }
+                reader2.close();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            // 写入修改后的文件
+            try {
+                FileWriter writer2 = new FileWriter(file2, false);
+                for (String line3 : lines2) {
+                    writer2.write(line3 + "\n");
+                }
+                writer2.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                JOptionPane.showMessageDialog(this, "写入文件失败", "", JOptionPane.ERROR_MESSAGE);
+            }
             JOptionPane.showMessageDialog(this, "删除学生成功", "", JOptionPane.INFORMATION_MESSAGE);
-
         });
     }
+
 }
