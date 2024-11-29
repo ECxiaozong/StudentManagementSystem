@@ -25,7 +25,6 @@ public class StudentListPanel extends JPanel {
     public StudentListPanel() {
         this.setBorder(new TitledBorder(new EtchedBorder(), "学生列表"));
         this.setLayout(new BorderLayout());
-        // TODO 列举小组和学生构建table和combox
         File file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt");
         BufferedReader reader = null;
         int count = 0;
@@ -168,7 +167,7 @@ public class StudentListPanel extends JPanel {
             try {
                 while ((line1 = reader1.readLine()) != null) {
                     String[] str1 = line1.split(",");
-                    if (str1[1].equals(data[selectedRow][0])) {
+                    if (str1[0].equals(data[selectedRow][1])) {
                         reader1.close();
                         break;
                     }
