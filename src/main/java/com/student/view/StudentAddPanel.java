@@ -82,6 +82,9 @@ public class StudentAddPanel extends JPanel {
                 ex.printStackTrace();
                 System.out.println("写入文件时发生错误。");
             }
+            txtId.setText("");
+            txtName.setText("");
+
             JOptionPane.showMessageDialog(this, "添加学生成功", "", JOptionPane.INFORMATION_MESSAGE);
         });
     }
