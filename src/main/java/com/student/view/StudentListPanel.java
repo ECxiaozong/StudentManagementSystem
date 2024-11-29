@@ -130,7 +130,7 @@ public class StudentListPanel extends JPanel {
                 // 使用 FileWriter 以追加模式打开文件
                 FileWriter writer = new FileWriter(file1, true);
                 // 写入学生信息
-                writer.write(student.getName() + "," + student.getId() + ",0" + student.getScore() + "\n");
+                writer.write(student.getName() + "," + student.getId() + ",男," + student.getScore() + "\n");
                 // 关闭 writer
                 writer.close();
             } catch (IOException e1) {
@@ -183,7 +183,7 @@ public class StudentListPanel extends JPanel {
                 str = lines.get(i).split(",");
                 data[i][0] = str[0];
                 data[i][1] = str[1];
-                data[i][2] = str[2];
+                data[i][2] = str[3];
             }
             // 更新表格
             DefaultTableModel tableModel1 = new DefaultTableModel(data, headers);
