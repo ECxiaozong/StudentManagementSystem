@@ -202,7 +202,6 @@ public class StudentListPanel extends JPanel {
                 for (String line3 : lines2) {
                     writer2.write(line3 + "\n");
                 }
-
                 writer2.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
