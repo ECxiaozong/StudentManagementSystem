@@ -28,7 +28,6 @@ public class StudentListPanel extends JPanel {
         File file = new File(Constant.FILE_PATH + "/" + Constant.CLASS_PATH + "/students.txt");
         BufferedReader reader = null;
         int count = 0;
-
         String line = null;
         try {
             reader = new BufferedReader(new FileReader(file));
