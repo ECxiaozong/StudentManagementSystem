@@ -217,6 +217,9 @@ public class StudentListPanel extends JPanel {
                 e1.printStackTrace();
                 JOptionPane.showMessageDialog(this, "写入文件失败", "", JOptionPane.ERROR_MESSAGE);
             }
+            txtId.setText("");
+            txtName.setText("");
+            cmbGroup.setSelectedIndex(0);
             JOptionPane.showMessageDialog(this, "删除学生成功", "", JOptionPane.INFORMATION_MESSAGE);
         });
     }
