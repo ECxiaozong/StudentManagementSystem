@@ -21,8 +21,8 @@ public class MainFrame extends JFrame {
 
     public void initMenus() {
         JMenuBar mainMenu = new JMenuBar();
-        JMenu fileMenu = new JMenu("文件");
-        JMenuItem changeClassMenuItem = new JMenuItem("切换当前班");
+        JMenu petMenu = new JMenu("宠物");
+        JMenuItem insertPetMenuItem = new JMenuItem("添加宠物");
         JMenuItem exportScoreMenuItem = new JMenuItem("导出当前班成绩");
         JMenuItem exitMenuItem = new JMenuItem("退出");
 
@@ -43,14 +43,14 @@ public class MainFrame extends JFrame {
         JMenuItem randomStudentMenuItem = new JMenuItem("随机学生");
 
         this.getContentPane().add(mainMenu, BorderLayout.NORTH);
-        mainMenu.add(fileMenu);
+        mainMenu.add(petMenu);
         mainMenu.add(classMenu);
         mainMenu.add(groupMenu);
         mainMenu.add(studentMenu);
         mainMenu.add(onClassMenu);
-        fileMenu.add(changeClassMenuItem);
-        fileMenu.add(exportScoreMenuItem);
-        fileMenu.add(exitMenuItem);
+        petMenu.add(insertPetMenuItem);
+        petMenu.add(exportScoreMenuItem);
+        petMenu.add(exitMenuItem);
         classMenu.add(addClassMenuItem);
         classMenu.add(classListMenuItem);
         groupMenu.add(addGroupMenuItem);
@@ -61,7 +61,7 @@ public class MainFrame extends JFrame {
         onClassMenu.add(randomStudentMenuItem);
         // 添加菜单事件
         // 切换班级
-        changeClassMenuItem.addActionListener(e -> {
+        insertPetMenuItem.addActionListener(e -> {
             this.getContentPane().removeAll();
             initMenus();
             ChangeClassPanel changeClassPanel = new ChangeClassPanel(this);
